@@ -105,20 +105,20 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   async function subirQRADrive(dataUrl, nombreQR) {
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx7VbK8MIsSFPw50up1vfLR_Jk204SEkrvCQOBzf-e8j4fGC6-jN7Wu0i3dr6OioGHr/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzAqY78WQsc4HmFFY-tNYVovoL-pl3aIeJpmnvG9bgc_Z6iXHdoxxs08398bZaP7Q1nyQ/exec";
 
-    const respuesta = await fetch(SCRIPT_URL, {
+    const response = await fetch(SCRIPT_URL, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({
         image: dataUrl,
         name: nombreQR
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      }
+      })
     });
 
-    const json = await respuesta.json();
+    const json = await response.json();
     if (json.status === "ok") {
       return json.url;
     } else {
