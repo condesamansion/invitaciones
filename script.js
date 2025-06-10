@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   async function subirQRADrive(dataUrl, nombreQR) {
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxSDYsHxmHVzl8mUry9a3n4sdp8gBJHnR_xTLOHcwbF9AULpaJ7QiN7-r2yoPsHEHE3mQ/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx7VbK8MIsSFPw50up1vfLR_Jk204SEkrvCQOBzf-e8j4fGC6-jN7Wu0i3dr6OioGHr/exec";
 
     const respuesta = await fetch(SCRIPT_URL, {
       method: "POST",
