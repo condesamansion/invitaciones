@@ -1,0 +1,83 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 900;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-top: 15px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button,
+.boton {
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  background: teal;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+}
+
+button:hover,
+.boton:hover {
+  background: darkcyan;
+}
+
+button.secundario {
+  background: #e0e0e0;
+  color: #333;
+}
+
+button.secundario:hover {
+  background: #c0c0c0;
+}
+
+#qrContainer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#canvasFinal {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+#mensajeQR {
+  font-style: italic;
+  margin-top: 10px;
+}

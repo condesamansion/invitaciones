@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Generador de Invitaciones</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="img/logo.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="container">
+    <h1>Generador de Invitaciones</h1>
+    <form id="formulario">
+      <label for="nombre">Destinatario:</label>
+      <input type="text" id="nombre" name="nombre" required />
+
+      <label for="entregadoPor">Entregado por:</label>
+      <input type="text" id="entregadoPor" name="entregadoPor" required />
+
+      <label for="beneficios">Beneficios:</label>
+      <textarea id="beneficios" name="beneficios" required></textarea>
+
+      <label for="notas">Notas (solo visible para portero):</label>
+      <input type="text" id="notas" name="notas" />
+
+      <label for="fecha">Fecha:</label>
+      <input type="date" id="fecha" name="fecha" required />
+
+      <label for="telefono">Teléfono (sin 0 ni 15):</label>
+      <input type="text" id="telefono" name="telefono" required placeholder="Ej: 358123456" />
+
+      <button type="submit">Generar QR</button>
+      <button type="button" id="resetBtn" class="secundario">Nuevo QR</button>
+    </form>
+
+    <div id="qrContainer" style="display: none;">
+      <canvas id="canvasFinal" width="899" height="1274"></canvas>
+      <p id="mensajeQR">⚠️ Importante: descargá el QR antes de las 24 hs. El QR desaparecerá!</p>
+      <a id="descargarQR" class="boton" href="#" download="invitacion.jpg">Descargar QR</a>
+      <a id="whatsappBtn" class="boton" href="#" target="_blank">Enviar por WhatsApp</a>
+    </div>
+  </div>
+
+  <!-- Librería QR moderna -->
+  <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
