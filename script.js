@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const baseUrl = `${window.location.origin}${window.location.pathname.replace("index.html", "")}`;
     const urlQR = `${baseUrl}invitacion.html?${params.toString()}`;
 
-    // Crear QR estilizado con logo
     const qr = new QRCodeStyling({
       width: 596,
       height: 596,
@@ -72,17 +71,17 @@ document.addEventListener("DOMContentLoaded", function () {
           const tempUrl = URL.createObjectURL(blob);
           descargarQR.href = tempUrl;
 
-          // Subir a Imgur
-          const imgurLink = await subirAImgur(dataUrl);
-          if (!imgurLink) {
-            alert("No se pudo subir la imagen a Imgur.");
-            return;
-          }
+          try {
+            const linkDrive = await subirQRADrive(dataUrl, nombre.toLowerCase().replace(/\s+/g, "-"));
+            const fechaFormateada = fecha.split("-").reverse().join("/");
+            const mensaje = `Hola! Esta es tu invitación para Condesa 👑\n\nConsta de "${beneficios}" para la noche del ${fechaFormateada}.\nTe invitó: ${entregadoPor}.\n\nDescargá tu QR desde aquí y mostralo en puerta:\n${linkDrive}\n\n⚠️ Importante: descargá el QR antes de las 24 hs. El QR desaparecerá!`;
 
-          const fechaFormateada = fecha.split("-").reverse().join("/");
-          const mensaje = `Hola! Esta es tu invitación para Condesa 👑\n\nConsta de "${beneficios}" para la noche del ${fechaFormateada}.\nTe invitó: ${entregadoPor}.\n\nDescargá tu QR desde aquí y mostralo en puerta:\n${imgurLink}\n\n⚠️ Importante: descargá el QR antes de las 24 hs. El QR desaparecerá!`;
-          whatsappBtn.href = `https://wa.me/54${telefono}?text=${encodeURIComponent(mensaje)}`;
-          qrContainer.style.display = "block";
+            whatsappBtn.href = `https://wa.me/54${telefono}?text=${encodeURIComponent(mensaje)}`;
+            qrContainer.style.display = "block";
+          } catch (error) {
+            console.error("Error al subir a Drive:", error);
+            alert("No se pudo subir la imagen a Drive.");
+          }
         };
       };
     }, 1000);
@@ -105,21 +104,25 @@ document.addEventListener("DOMContentLoaded", function () {
     return new Blob([u8arr], { type: mime });
   }
 
-  async function subirAImgur(base64Image) {
-    const clientId = "4b1a3546c844fbd"; // Reemplaza si lo necesitás
-    const response = await fetch("https://api.imgur.com/3/image", {
+  async function subirQRADrive(dataUrl, nombreQR) {
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxSDYsHxmHVzl8mUry9a3n4sdp8gBJHnR_xTLOHcwbF9AULpaJ7QiN7-r2yoPsHEHE3mQ/exec";
+
+    const respuesta = await fetch(SCRIPT_URL, {
       method: "POST",
+      body: JSON.stringify({
+        image: dataUrl,
+        name: nombreQR
+      }),
       headers: {
-        Authorization: `Client-ID ${clientId}`,
-        Accept: "application/json"
-      },
-      body: new URLSearchParams({
-        image: base64Image.split(",")[1],
-        type: "base64"
-      })
+        "Content-Type": "application/json"
+      }
     });
 
-    const data = await response.json();
-    return data.success ? data.data.link : null;
+    const json = await respuesta.json();
+    if (json.status === "ok") {
+      return json.url;
+    } else {
+      throw new Error("Error al subir a Drive: " + json.message);
+    }
   }
 });
