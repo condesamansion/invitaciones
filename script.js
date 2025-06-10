@@ -74,7 +74,8 @@ document.addEventListener("DOMContentLoaded", function () {
           try {
             const linkDrive = await subirQRADrive(dataUrl, nombre.toLowerCase().replace(/\s+/g, "-"));
             const fechaFormateada = fecha.split("-").reverse().join("/");
-            const mensaje = `Hola! Esta es tu invitación para Condesa 👑\n\nConsta de "${beneficios}" para la noche del ${fechaFormateada}.\n\nTe invitó: ${entregadoPor}.\n\nDescargá tu QR desde aquí y mostralo en puerta:\n${linkDrive}`;
+            const mensaje = `Hola! Esta es tu invitación para Condesa 👑\n\nConsta de "${beneficios}" para la noche del ${fechaFormateada}.\n\nTe invitó: ${entregadoPor}.\n\nDescargá tu QR desde aquí y mostralo en puerta:\n${linkDrive}\n\n
+            Descargá este flyer, poné tu nombre y etiquetanos en IG 🤩\ndrive.google.com/file/d/1eVR-2W3dBQqw-0sOYnKLk2o5qFXA8aKz/view?usp=drive_link`;
 
             whatsappBtn.href = `https://wa.me/54${telefono}?text=${encodeURIComponent(mensaje)}`;
             qrContainer.style.display = "block";
