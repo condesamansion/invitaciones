@@ -107,15 +107,13 @@ document.addEventListener("DOMContentLoaded", function () {
   async function subirQRADrive(dataUrl, nombreQR) {
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzAqY78WQsc4HmFFY-tNYVovoL-pl3aIeJpmnvG9bgc_Z6iXHdoxxs08398bZaP7Q1nyQ/exec";
 
+    const formData = new FormData();
+    formData.append("image", dataUrl);
+    formData.append("name", nombreQR);
+
     const response = await fetch(SCRIPT_URL, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        image: dataUrl,
-        name: nombreQR
-      })
+      body: new Blob([JSON.stringify({ image: dataUrl, name: nombreQR })], { type: "text/plain" })
     });
 
     const json = await response.json();
